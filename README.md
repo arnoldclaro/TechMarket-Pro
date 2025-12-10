@@ -46,4 +46,5 @@ Esta será la estructura principal con el menú y el carrito de compras.
 
 ### 📄 Contenido de `index.html`
 
-
+### DOCUMENTO 
+"Documento/"

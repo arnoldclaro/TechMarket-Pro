@@ -1,17 +1,17 @@
-// Definición del Menú con datos de ejemplo
+// --- DATOS DEL MENÚ (URLs de imágenes de Unsplash como ejemplo) ---
 const menuItems = [
-    { id: 1, name: 'Hamburguesa Clásica', price: 8.50, image: 'hamburguer.jpg', description: 'Carne de res, lechuga, tomate y salsa especial.' },
-    { id: 2, name: 'Papas Fritas Grandes', price: 3.00, image: 'fries.jpg', description: 'Crujientes papas fritas con sal marina.' },
-    { id: 3, name: 'Doble Queso Burger', price: 12.00, image: 'double-cheese.jpg', description: 'Doble carne, doble queso, pepinillos y aderezo ranch.' },
-    { id: 4, name: 'Malteada de Vainilla', price: 4.50, image: 'shake.jpg', description: 'Malteada cremosa de vainilla con topping.' },
-    { id: 5, name: 'Nuggets de Pollo (x6)', price: 6.50, image: 'nuggets.jpg', description: 'Tiernos nuggets de pollo fritos a la perfección.' },
-    { id: 6, name: 'Ensalada César', price: 9.50, image: 'salad.jpg', description: 'Lechuga romana, crutones, queso parmesano y pollo grillé.' }
+    { id: 1, name: 'Hamburguesa Clásica Premium', price: 8.50, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=400&fit=crop', description: 'Carne Angus, lechuga fresca, tomate orgánico y nuestra salsa secreta.', badge: 'Popular' },
+    { id: 2, name: 'Papas Fritas Artesanales', price: 3.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&h=400&fit=crop', description: 'Papas cortadas a mano, fritas en aceite premium con sal marina.' },
+    { id: 3, name: 'Doble Queso Deluxe', price: 12.00, image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&h=400&fit=crop', description: 'Doble carne premium, queso madurado, pepinillos y aderezo especial.', badge: 'Nuevo' },
+    { id: 4, name: 'Malteada Vainilla Bourbon', price: 4.50, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&h=400&fit=crop', description: 'Malteada cremosa de vainilla con un toque de sabor a bourbon.' },
+    { id: 5, name: 'Nuggets de Pollo Crujientes (x6)', price: 6.50, image: 'https://images.unsplash.com/photo-1544976767-f703648d70c4?w=600&h=400&fit=crop', description: 'Pollo de corral, empanizado en panko japonés. Pídelo con tu salsa favorita.' },
+    { id: 6, name: 'Ensalada Premium con Pollo', price: 9.50, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop', description: 'Ensalada fresca con pollo a la parrilla, aderezo cítrico y nueces.', badge: 'Fit' }
 ];
 
-// Estado global del Carrito
+// --- ESTADO GLOBAL ---
 let cart = [];
 
-// Constantes del DOM
+// --- CONSTANTES DEL DOM ---
 const productsGrid = document.getElementById('products-grid');
 const cartSidebar = document.getElementById('cart-sidebar');
 const openCartBtn = document.getElementById('open-cart-btn');
@@ -23,27 +23,46 @@ const cartSubtotalElement = document.getElementById('cart-subtotal');
 const cartTotalElement = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
 
+// --- UTILIDADES ---
+
+// Crea partículas en el hero (Efecto visual)
+function createParticles() {
+    const heroParticles = document.querySelector('.hero-particles');
+    for(let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        heroParticles.appendChild(particle);
+    }
+}
 
 // Función para formatear el precio a moneda
 const formatPrice = (price) => `$${price.toFixed(2)}`;
 
-// 1. RENDERIZAR LOS PRODUCTOS EN EL MENÚ
+// --- LÓGICA DEL MENÚ ---
+
 function renderMenu() {
     productsGrid.innerHTML = '';
     menuItems.forEach(item => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-            <img src="assets/img/${item.image}" alt="${item.name}" loading="lazy">
+            <div class="product-image-wrapper">
+                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                ${item.badge ? `<div class="product-badge">${item.badge}</div>` : ''}
+                <div class="product-glow"></div>
+            </div>
             <div class="product-info">
-                <div>
-                    <h3>${item.name}</h3>
-                    <p>${item.description}</p>
-                </div>
-                <div class="price-add">
-                    <span class="price">${formatPrice(item.price)}</span>
+                <h3 class="product-name">${item.name}</h3>
+                <p class="product-description">${item.description}</p>
+                <div class="product-footer">
+                    <div class="product-price">${formatPrice(item.price)}</div>
                     <button class="add-to-cart-btn" data-id="${item.id}">
-                        Añadir <i class="fas fa-plus"></i>
+                        <span>Añadir</span>
+                        <i class="fas fa-plus"></i>
                     </button>
                 </div>
             </div>
@@ -52,40 +71,41 @@ function renderMenu() {
     });
 }
 
-// 2. LÓGICA DEL CARRITO
+// --- LÓGICA DEL CARRITO ---
 
-// Abre el sidebar del carrito
 function openCart() {
     cartSidebar.classList.add('open');
     overlay.classList.add('visible');
     document.body.style.overflow = 'hidden'; // Evita scroll en el fondo
 }
 
-// Cierra el sidebar del carrito
 function closeCart() {
     cartSidebar.classList.remove('open');
     overlay.classList.remove('visible');
     document.body.style.overflow = 'auto';
 }
 
-// Actualiza la visualización del carrito (HTML)
 function renderCart() {
     cartItemsList.innerHTML = '';
     
     if (cart.length === 0) {
-        cartItemsList.innerHTML = '<p class="empty-cart-message">Tu carrito está vacío.</p>';
+        cartItemsList.innerHTML = `
+            <div class="empty-cart-message">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        `;
     } else {
         cart.forEach(item => {
             const listItem = document.createElement('div');
             listItem.className = 'cart-item';
-            listItem.dataset.id = item.id;
             listItem.innerHTML = `
                 <div class="item-details">
                     <h4>${item.name}</h4>
-                    <span>${formatPrice(item.price)} x ${item.quantity}</span>
+                    <span>${formatPrice(item.price)} × ${item.quantity}</span>
                 </div>
                 <div class="quantity-controls">
-                    <button class="decrease-quantity" data-id="${item.id}">-</button>
+                    <button class="decrease-quantity" data-id="${item.id}">−</button>
                     <span>${item.quantity}</span>
                     <button class="increase-quantity" data-id="${item.id}">+</button>
                 </div>
@@ -100,7 +120,6 @@ function renderCart() {
     updateCartTotals();
 }
 
-// Añade un producto al carrito
 function addToCart(productId) {
     const product = menuItems.find(item => item.id === productId);
     const existingItem = cart.find(item => item.id === productId);
@@ -112,15 +131,20 @@ function addToCart(productId) {
     }
 
     renderCart();
+    
+    // Animación para el contador del carrito
+    const countEl = document.getElementById('cart-count');
+    countEl.style.animation = 'none';
+    setTimeout(() => {
+        countEl.style.animation = 'pulse 0.5s ease';
+    }, 10);
 }
 
-// Elimina completamente un producto del carrito
 function removeItem(productId) {
     cart = cart.filter(item => item.id !== productId);
     renderCart();
 }
 
-// Cambia la cantidad de un producto
 function changeQuantity(productId, type) {
     const item = cart.find(i => i.id === productId);
     if (!item) return;
@@ -137,10 +161,10 @@ function changeQuantity(productId, type) {
     renderCart();
 }
 
-// Calcula y actualiza los totales y el contador
 function updateCartTotals() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = cart.length > 0 ? 5.00 : 0.00; // Envío solo si hay productos
+    // Asumimos $5.00 de envío si hay productos, $0.00 si está vacío.
+    const shipping = cart.length > 0 ? 5.00 : 0.00; 
     const total = subtotal + shipping;
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -149,35 +173,33 @@ function updateCartTotals() {
     cartCountElement.textContent = totalItems;
 }
 
-// 3. LISTENERS DE EVENTOS
+// --- LISTENERS DE EVENTOS ---
 
-// Listener para abrir/cerrar carrito
 openCartBtn.addEventListener('click', openCart);
 closeCartBtn.addEventListener('click', closeCart);
 overlay.addEventListener('click', closeCart);
 
-// Listener para añadir productos al menú (usa delegación de eventos)
+// Delegación de eventos para añadir productos desde el menú
 productsGrid.addEventListener('click', (e) => {
-    if (e.target.classList.contains('add-to-cart-btn')) {
-        const productId = parseInt(e.target.dataset.id);
+    const btn = e.target.closest('.add-to-cart-btn');
+    if (btn) {
+        const productId = parseInt(btn.dataset.id);
         addToCart(productId);
-        // Opcional: abrir el carrito al añadir el primer producto
+        // Abrir carrito al añadir si está cerrado
         if (!cartSidebar.classList.contains('open')) {
-             openCart();
+            openCart();
         }
     }
 });
 
-// Listener para los controles dentro del carrito (delegación de eventos)
+// Delegación de eventos para controles dentro del carrito (eliminar, aumentar/disminuir)
 cartItemsList.addEventListener('click', (e) => {
-    const target = e.target;
-    const isButton = target.tagName === 'BUTTON' || target.closest('button');
-    if (!isButton) return;
+    const button = e.target.closest('button');
+    if (!button) return;
 
-    const button = target.closest('button');
     const productId = parseInt(button.dataset.id);
 
-    if (button.classList.contains('remove-item-btn') || target.closest('.remove-item-btn')) {
+    if (button.classList.contains('remove-item-btn')) {
         removeItem(productId);
     } else if (button.classList.contains('increase-quantity')) {
         changeQuantity(productId, 'increase');
@@ -186,22 +208,22 @@ cartItemsList.addEventListener('click', (e) => {
     }
 });
 
-// Listener para el botón de Finalizar Pedido
+// Botón de Finalizar Pedido
 checkoutBtn.addEventListener('click', () => {
     if (cart.length > 0) {
-        alert(`Pedido finalizado. Total a pagar: ${cartTotalElement.textContent}\n¡Gracias por tu compra en Fast Food Bites!`);
-        // Simular un vaciado de carrito después del checkout
+        alert(`🎉 ¡Pedido confirmado!\n\nTotal: ${cartTotalElement.textContent}\n\n✨ Gracias por elegir Fast Food Bites Premium!`);
+        // Simular vaciado de carrito después de la compra
         cart = [];
         renderCart();
         closeCart();
     } else {
-        alert('Tu carrito está vacío. Por favor, añade productos para finalizar tu pedido.');
+        alert('Tu carrito está vacío. ¡Explora nuestro menú exclusivo!');
     }
 });
 
-
-// Inicialización del proyecto
+// --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
+    createParticles(); // Crea las partículas del fondo
     renderMenu();
-    renderCart(); // Renderiza el carrito inicialmente (vacío)
+    renderCart();
 });
