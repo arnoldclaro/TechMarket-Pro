@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast Food Bites - Premium Experience</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <a href="https://wa.me/573101234567" target="_blank" class="whatsapp-float" aria-label="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <nav class="navbar">
         <div class="navbar-glass">
             <div class="logo">
@@ -15,6 +21,11 @@
                     <i class="fas fa-fire-flame-curved"></i>
                 </div>
                 <span>Fast Food <strong>Bites</strong></span>
+            </div>
+            <div class="nav-links">
+                <a href="#products-grid">Menú</a> 
+                <a href="#about-us">Nosotros</a>
+                <a href="#contact-form">Contacto</a>
             </div>
             <div class="cart-btn-wrapper">
                 <button class="cart-button" id="open-cart-btn">
@@ -32,11 +43,75 @@
         <p class="hero-subtitle">Experimenta la mejor comida rápida con ingredientes selectos y un servicio excepcional</p>
     </section>
 
+    <section class="promotions-slider">
+        <div class="slider-track" id="slider-track">
+            <div class="slide promo-1">
+                <div class="promo-text">
+                    <h3>🍔 Doble Martes de Burger</h3>
+                    <p>¡Compra una hamburguesa, la segunda a mitad de precio! Exclusivo online.</p>
+                </div>
+                <button class="promo-btn" data-promo-id="1">Ver Oferta</button>
+            </div>
+            <div class="slide promo-2">
+                <div class="promo-text">
+                    <h3>🍟 Combo Familiar Deluxe</h3>
+                    <p>4 Menús, papas grandes y 2 malteadas por solo $39.99!</p>
+                </div>
+                <button class="promo-btn" data-promo-id="2">¡Pedir Ahora!</button>
+            </div>
+        </div>
+        <div class="slider-dots" id="slider-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+        </div>
+    </section>
     <section class="products-section">
         <div class="section-header">
             <h2 class="section-title">Nuestro Menú Exclusivo</h2>
         </div>
-        <div class="products-grid" id="products-grid"></div>
+        <div class="products-grid" id="products-grid">
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <div class="info-content-wrapper">
+            <div class="info-card" id="about-us">
+                <h2 class="section-title">Acerca de Nosotros</h2>
+                <p>Somos **Fast Food Bites**, una experiencia gastronómica que combina la velocidad de la comida rápida con la calidad de los ingredientes *premium*. Nuestro compromiso es ofrecer sabores inigualables y un servicio excepcional, todo en una plataforma digital moderna y fluida.</p>
+                <p>Nuestra misión es redefinir la comida rápida.</p>
+
+                <h2 class="section-title contact-title">Contáctanos</h2>
+                <div class="contact-details">
+                    <p><i class="fas fa-phone-alt"></i> **Teléfono:** +57 310 123 4567</p>
+                    <p><i class="fas fa-envelope"></i> **Email:** <a href="mailto:contacto@ffbites.com">contacto@ffbites.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> **Dirección:** Cra 5 # 10-20, Ciudad Ejemplo, CO</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="info-card form-card" id="contact-form">
+                <h2 class="section-title">Envíanos un Mensaje</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" name="name" required placeholder="Tu nombre...">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tu consulta..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Consulta</button>
+                </form>
+            </div>
+            </div>
     </section>
 
     <aside class="cart-sidebar" id="cart-sidebar">
@@ -64,6 +139,46 @@
 
     <div class="overlay" id="overlay"></div>
 
+    <footer class="footer">
+        <div class="footer-columns-wrapper">
+            <div class="footer-column">
+                <h4>Categorías</h4>
+                <ul>
+                    <li><a href="#products-grid">Hamburguesas Insignia</a></li>
+                    <li><a href="#products-grid">Parrilla & Creaciones</a></li>
+                    <li><a href="#products-grid">Ensaladas & Fit</a></li>
+                    <li><a href="#products-grid">Postres & Bebidas</a></li>
+                    <li><a href="#products-grid">Acompañamientos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Sobre Fast Food Bites</h4>
+                <ul>
+                    <li><a href="#about-us">Quiénes Somos</a></li>
+                    <li><a href="#">Sostenibilidad</a></li>
+                    <li><a href="#">Eventos</a></li>
+                    <li><a href="#">Contáctanos (PQRS)</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legales</h4>
+                <ul>
+                    <li><a href="#">Política de tratamiento de datos</a></li>
+                    <li><a href="#">Términos y Condiciones de la página web</a></li>
+                    <li><a href="#">Términos y Condiciones de Compañías</a></li>
+                    <li><a href="#">Gestión de cookies</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+             <div class="logo-footer">Fast Food <strong>Bites</strong></div>
+            <p>&copy; <span id="current-year">2025</span> Fast Food Bites. Todos los derechos registrados.</p>
+            <p class="tech-info">Desarrollado con HTML, CSS y JavaScript.</p>
+        </div>
+    </footer>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

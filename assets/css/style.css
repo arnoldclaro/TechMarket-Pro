@@ -167,6 +167,48 @@ body::before {
 }
 
 /* ================================================ */
+/* NEW NAVBAR LINKS */
+/* ================================================ */
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+}
+
+/* ================================================ */
 /* HERO SECTION */
 /* ================================================ */
 .hero {
@@ -237,6 +279,130 @@ body::before {
     0%, 100% { transform: translateY(0) translateX(0); }
     50% { transform: translateY(-100px) translateX(50px); }
 }
+
+/* ================================================ */
+/* PROMOCIONES SLIDER (CARRUSEL) */
+/* ================================================ */
+
+.promotions-slider {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 180px; /* Altura del carrusel */
+    margin: 4rem auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 50; /* Para estar sobre el fondo pero bajo el navbar */
+}
+
+.slider-track {
+    display: flex;
+    width: 200%; /* El doble de ancho para 2 slides */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide {
+    width: 50%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fondos para las promociones (simulando imágenes) */
+.promo-1 {
+    background: linear-gradient(90deg, #5c007a 0%, #8b5cf6 100%);
+}
+
+.promo-2 {
+    background: linear-gradient(90deg, #FF6B35 0%, #FFD23F 100%);
+    color: var(--darker); /* Texto oscuro para fondo claro */
+}
+
+.promo-1::before, .promo-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+/* Se usan URLs de ejemplo para simular las imágenes */
+.promo-1::before {
+    background: url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&h=180&fit=crop') no-repeat center center;
+    background-size: cover;
+}
+.promo-2::before {
+    background: url('https://images.unsplash.com/photo-1582234032549-b006c05a18a8?q=80&w=600&h=180&fit=crop') no-repeat center center;
+    background-size: cover;
+}
+
+.promo-text {
+    z-index: 10;
+}
+
+.promo-text h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.promo-text p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.promo-btn {
+    background: white;
+    color: var(--dark);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.promo-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Dots de navegación */
+.slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 15;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
+}
+
 
 /* ================================================ */
 /* PRODUCTS SECTION */
@@ -711,12 +877,286 @@ body::before {
 }
 
 /* ================================================ */
+/* WHATSAPP FLOAT BUTTON (CTA) */
+/* ================================================ */
+
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366; /* Color oficial de WhatsApp */
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 60px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.8);
+}
+
+/* ================================================ */
+/* INFO & CONTACT SECTION */
+/* ================================================ */
+
+.info-section {
+    padding: 6rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.info-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 4rem;
+    align-items: stretch;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.05); /* Glassmorphism ligero */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 3rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+}
+
+.info-card .section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.info-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* Estilos de Contacto */
+.contact-details p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.contact-details i {
+    color: var(--accent);
+}
+
+.contact-details a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-details a:hover {
+    color: var(--light);
+}
+
+/* Iconos Sociales */
+.social-icons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.8rem;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--pink);
+    transform: scale(1.15);
+}
+
+/* Ajuste de Contacto para el nuevo layout */
+#about-us {
+    /* Mover el contenido de contacto dentro de 'Acerca de Nosotros' */
+    padding-bottom: 0; 
+}
+
+.contact-title {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ================================================ */
+/* CONTACT FORM STYLES (Formulario) */
+/* ================================================ */
+
+/* Asegura que el formulario tenga el estilo de tarjeta (info-card) */
+.form-card {
+    display: block; /* Desactiva flex para que los elementos de formulario fluyan verticalmente */
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--light);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05); /* Campo de entrada Glassmorphism */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    color: var(--dark);
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+}
+
+/* ================================================ */
+/* FOOTER (PIE DE PÁGINA) - AMPLIADO */
+/* ================================================ */
+
+.footer {
+    background: var(--dark); /* Color oscuro similar al fondo de El Corral */
+    padding: 3rem 2rem 1rem; /* Más padding arriba */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+.footer-columns-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas grandes */
+    gap: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-column h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--accent); /* Color de acento para los títulos de columna */
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-column ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.footer-bottom-bar {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.logo-footer {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.logo-footer strong {
+    color: var(--primary);
+}
+
+.footer-bottom-bar p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0.5rem 0;
+}
+
+/* ================================================ */
 /* RESPONSIVE */
 /* ================================================ */
 @media (max-width: 1024px) {
     .products-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
+    }
+}
+
+@media (max-width: 900px) { /* Nuevo responsive para footer */
+    .footer-columns-wrapper {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
     }
 }
 
@@ -733,9 +1173,31 @@ body::before {
         padding: 0.7rem 1.2rem;
         font-size: 0.9rem;
     }
+    
+    .nav-links {
+        display: none; /* Ocultar en móviles */
+    }
 
     .hero {
         padding: 6rem 1.5rem 3rem;
+    }
+
+    .promotions-slider { /* Responsive del Carrusel */
+        height: 150px;
+        margin: 2rem auto;
+    }
+    .slide {
+        padding: 0 1rem;
+    }
+    .promo-text h3 {
+        font-size: 1.3rem;
+    }
+    .promo-text p {
+        font-size: 0.85rem;
+    }
+    .promo-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
     }
 
     .products-section {
@@ -750,5 +1212,34 @@ body::before {
     .cart-sidebar {
         width: 100%;
         right: -100%;
+    }
+    
+    .info-section {
+        padding: 4rem 1.5rem;
+    }
+    
+    .info-content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .info-card {
+        padding: 2rem;
+    }
+    
+    .footer {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 550px) { /* Nuevo responsive para footer */
+    .footer-columns-wrapper {
+        grid-template-columns: 1fr; /* 1 columna en móviles */
+        text-align: center;
+    }
+    .footer-column {
+        margin-bottom: 2rem;
+    }
+    .footer-column h4 {
+        text-align: center;
     }
 }

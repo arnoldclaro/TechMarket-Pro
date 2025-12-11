@@ -22,6 +22,51 @@ const cartCountElement = document.getElementById('cart-count');
 const cartSubtotalElement = document.getElementById('cart-subtotal');
 const cartTotalElement = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
+const contactForm = document.querySelector('.contact-form');
+
+// --- LÓGICA DEL CARRUSEL (NUEVA) ---
+const sliderTrack = document.getElementById('slider-track');
+const sliderDots = document.getElementById('slider-dots');
+let currentSlide = 0;
+const totalSlides = 2; // Tenemos 2 promociones
+let slideInterval;
+
+function moveToSlide(index) {
+    if (index >= totalSlides) index = 0;
+    if (index < 0) index = totalSlides - 1;
+
+    currentSlide = index;
+    const offset = -index * 50; // Mueve el 50% para cada slide (porque hay 2 slides y el track es del 200%)
+    if (sliderTrack) {
+        sliderTrack.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Actualizar los dots
+    if (sliderDots) {
+        const dots = sliderDots.querySelectorAll('.dot');
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentSlide);
+        });
+    }
+}
+
+function startSlider() {
+    // Solo iniciar si el carrusel existe en el HTML
+    if (sliderTrack) {
+        slideInterval = setInterval(() => {
+            moveToSlide(currentSlide + 1);
+        }, 4000); // Cambia cada 4 segundos
+    }
+}
+
+function handleDotClick(e) {
+    if (e.target.classList.contains('dot')) {
+        clearInterval(slideInterval); // Detener el auto-slide
+        const slideIndex = parseInt(e.target.dataset.slide);
+        moveToSlide(slideIndex);
+        startSlider(); // Reiniciar el auto-slide
+    }
+}
 
 // --- UTILIDADES ---
 
@@ -179,6 +224,11 @@ openCartBtn.addEventListener('click', openCart);
 closeCartBtn.addEventListener('click', closeCart);
 overlay.addEventListener('click', closeCart);
 
+// Listener para los dots del carrusel
+if (sliderDots) {
+    sliderDots.addEventListener('click', handleDotClick);
+}
+
 // Delegación de eventos para añadir productos desde el menú
 productsGrid.addEventListener('click', (e) => {
     const btn = e.target.closest('.add-to-cart-btn');
@@ -221,9 +271,35 @@ checkoutBtn.addEventListener('click', () => {
     }
 });
 
+// --- LÓGICA ADICIONAL: FORMULARIO DE CONTACTO ---
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que la página se recargue
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        // Simulación de envío exitoso
+        alert(`¡Mensaje Enviado con Éxito!\n\nGracias, ${name}.\nNos comunicaremos contigo pronto a: ${email}\n\nDetalles:\n"${message.substring(0, 50)}..."`);
+        
+        // Limpiar el formulario después del envío
+        contactForm.reset();
+    });
+}
+
+
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Inicialización de la funcionalidad existente
     createParticles(); // Crea las partículas del fondo
     renderMenu();
     renderCart();
+    
+    // INICIAR EL CARRUSEL
+    startSlider(); 
+
+    // 2. Actualiza el año en el footer (Derechos Registrados)
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 });
